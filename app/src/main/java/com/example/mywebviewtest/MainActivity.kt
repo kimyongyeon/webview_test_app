@@ -2,12 +2,15 @@ package com.example.mywebviewtest
 
 import android.app.Dialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.Bitmap
 import android.net.http.SslError
 import android.os.*
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.*
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -48,6 +51,12 @@ class MainActivity : AppCompatActivity(), AndroidBridge.BridgeListener {
     private lateinit var mProgressBar: ProgressBar
     private val bridge = AndroidBridge()
 
+    private lateinit var editSearch: EditText
+    private lateinit var btnSearch: Button
+    private lateinit var btnLogin: Button
+    private lateinit var btnJoin: Button
+    private lateinit var btnMytData: Button
+    private lateinit var btnMytFare: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +64,49 @@ class MainActivity : AppCompatActivity(), AndroidBridge.BridgeListener {
 
         webView = findViewById(R.id.myWebview)
         mProgressBar = findViewById(R.id.progress1)
+
+        editSearch = findViewById(R.id.edtSearch)
+        btnSearch = findViewById(R.id.btnSearch)
+        btnLogin = findViewById(R.id.btnLogin)
+        btnJoin = findViewById(R.id.btnJoin)
+        btnMytData = findViewById(R.id.btnMytData)
+        btnMytFare = findViewById(R.id.btnMytFare)
+
+        btnLogin.setOnClickListener {
+            Toast.makeText(this, "btnLogin", Toast.LENGTH_SHORT).show()
+            // todo: TWD 로그인 팝업
+        }
+
+        btnJoin.setOnClickListener {
+            Toast.makeText(this, "btnJoin", Toast.LENGTH_SHORT).show()
+            // todo: TWD 회원가입 팝업
+        }
+
+        btnMytData.setOnClickListener {
+            Toast.makeText(this, "btnMytData", Toast.LENGTH_SHORT).show()
+            // todo: TWD 나의데이터 화면이동
+            val nextIntent = Intent(this, MainActivity2::class.java)
+            startActivity(nextIntent)
+        }
+
+        btnMytFare.setOnClickListener {
+            Toast.makeText(this, "btnMytFare", Toast.LENGTH_SHORT).show()
+            // todo: TWD 나의요금 화면이동
+            val nextIntent = Intent(this, MainActivity3::class.java)
+            startActivity(nextIntent)
+        }
+
+        editSearch.setOnClickListener {
+//            Toast.makeText(this, "editSearch", Toast.LENGTH_SHORT).show()
+        }
+
+        btnSearch.setOnClickListener {
+            Toast.makeText(this, "btnSearch", Toast.LENGTH_SHORT).show()
+
+            val edtSearchData = editSearch.text
+            webView.loadUrl(edtSearchData.toString())
+        }
+
 
         webView.apply {
             webViewClient = WebViewClientClass() // new WebViewClient() 클릭시 새창 안뜨게
